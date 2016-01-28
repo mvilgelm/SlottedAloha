@@ -7,8 +7,6 @@ import matplotlib
 from scipy import special
 
 
-
-
 def q_a(lmb, m):
     return 1 - math.exp(-lmb/m)
 
