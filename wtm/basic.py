@@ -1,3 +1,7 @@
+'''
+Basic model: no retransmissions!
+'''
+
 __author__ = 'Mikhail Vilgelm'
 
 import numpy as np
