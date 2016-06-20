@@ -1,5 +1,5 @@
 '''
-Basic model: no retransmissions!
+Basic model: no retransmissions, only mean arrival rate of the poisson distribution as a parameter.
 '''
 
 __author__ = 'Mikhail Vilgelm'
@@ -33,6 +33,9 @@ def t_tdma(arr):
 
 
 def plot_saloha_vs_tdma(load_range):
+    """
+    Plot slotted aloha performance vs. tdma
+    """
 
     # configure plot parameters
     matplotlib.rcParams.update({'font.size': 14})
@@ -55,12 +58,11 @@ def plot_saloha_vs_tdma(load_range):
 
     plt.legend(('C.-based', 'C.-free'), loc=0)
 
-    # by default --> show but not save
-    plt.show()
-    # plt.savefig(os.getenv("HOME")+'/Dropbox/_lkn/basic.png', format='png', bbox='tight')
-
 
 def plot_saloha_performance(load_range):
+    """
+    Plot slotted aloha performance metrics: collisions, idle slots and throughput
+    """
 
     # configure plot parameters
     matplotlib.rcParams.update({'font.size': 14})
@@ -77,24 +79,20 @@ def plot_saloha_performance(load_range):
 
     # idle
     plt.plot(load, [i_aloha(x) for x in load], '--g')
-
-
-    # plt.ylim((0, 1.1))
+    
     plt.grid(True)
     plt.xlabel('Normalized load '+r'$\lambda$')
     plt.ylabel('Probability')
 
     plt.legend(('success', 'collision', 'idle'), loc=0)
-
-    # by default: only show
-    plt.show()
-    # plt.savefig(os.getenv("HOME")+'/Dropbox/_lkn/basic.png', format='png', bbox='tight')
-
+    
 
 if __name__=='__main__':
 
     load = [0.01+0.01*x for x in range(400)]
 
-    # plot_saloha_vs_tdma(load)
+    plot_saloha_vs_tdma(load)
 
     plot_saloha_performance(load)
+
+    plt.show()

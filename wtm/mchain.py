@@ -66,7 +66,7 @@ class SAlohaModel():
         :return:
         '''
         i = nplusi - n
-        if (i >= 2) and (i <= (m-n)):
+        if (i >= 2) and (i <= (self.m-n)):
             return self.get_Q_a(i, n)
         elif i == 1:
             return self.get_Q_a(1, n)*(1 - self.get_Q_r(0, n))
@@ -121,27 +121,24 @@ class SAlohaModel():
         p_values = [p_0]
 
         # compute one after another
-        for i in range(1, m+1):
+        for i in range(1, self.m+1):
             p_values.append(self.get_p_n(i, p_values))
 
         # get normalized values
         p_values = [v/sum(p_values) for v in p_values]
 
-        # make sure they sum up
-        # assert sum(p_values) == 1
-
         return p_values
 
 
-
-
-if __name__=='__main__':
-
+def create_figure_with_params():
     # global plotting settings
     matplotlib.rcParams.update({'font.size': 14})
     matplotlib.rcParams.update({'figure.autolayout': True})
-    plt.figure(figsize=(7, 4.5))
 
+    plt.figure(figsize=(7, 4.5))    
+
+
+def plot_performance(metric="throughput"):
     # simulation parameters:
     m = 10
     q_r_all = [0.05, 0.2, 0.3]
@@ -194,9 +191,10 @@ if __name__=='__main__':
             throughput.append(T)
 
         # choose the plot you need
-        # p.append(plt.plot(lmb_all, delay))
-        # p.append(plt.plot(lmb_all, expected_ns, 'x-'))
-        p.append(plt.plot(lmb_all, throughput, '-'))
+        if metric == "throughput":        
+            p.append(plt.plot(lmb_all, throughput, '-'))
+        elif metric == "delay":
+            p.append(plt.plot(lmb_all, delay))        
 
 
     # plotting parameters
@@ -205,14 +203,16 @@ if __name__=='__main__':
     plt.xlabel('Total load '+r'$\lambda$')
 
     # choose the label
-
-    plt.ylabel('Throughput '+r'$T$')
-    # plt.ylabel('Delay')
-    # plt.ylabel('Probability')
-
+    if metric == "throughput":
+        plt.ylabel('Throughput '+r'$T$')
+    elif metric == "delay":
+        plt.ylabel('Delay')
+    
     # pick up the legend
-    # plt.legend((r'$q_r$='+str(q_r_all[0]), r'$q_r$='+str(q_r_all[1]), r'$q_r$='+str(q_r_all[2])), loc=0)
+    plt.legend((r'$q_r$='+str(q_r_all[0]), r'$q_r$='+str(q_r_all[1]), r'$q_r$='+str(q_r_all[2])), loc=0)
 
-    # save or show!
-    plt.show()
-    # plt.savefig(os.getenv("HOME")+'/Dropbox/_lkn/WTM/mchain_d.png', format='png', bbox='tight')
+
+if __name__=='__main__':
+    
+    plot_performance("throughput")    
+    plt.show()    
