@@ -13,15 +13,15 @@ from scipy import special
 
 class SAlohaModel():
 
-    def __init__(self, params):
+    def __init__(self, **kwargs):
         '''
         Parameters: number of nodes, total arrival rate, retransmission probability
         :param params:
         :return:
         '''
-        self.m = params['m']
-        self.lmb = params['lmb']
-        self.q_r = params['q_r']
+        self.m = kwargs['m']
+        self.lmb = kwargs['lmb']
+        self.q_r = kwargs['q_r']
 
         # calculate transition matrix
         self.t_matrix = [[]]
@@ -129,6 +129,23 @@ class SAlohaModel():
 
         return p_values
 
+    def get_G(self, n):
+        v = (self.m-n)*self.q_a() + n*self.q_r        
+        return v
+
+
+    def get_P_succ_appr_n(self, n):
+        return self.get_G(n)*math.exp(-self.get_G(n))
+
+
+    def get_P_succ_appr_G(self, G):
+        return G*math.exp(-G)
+
+
+    def get_D_n(self, n):
+        return (self.m-n)*self.q_a() - self.get_P_succ_appr_n(n)
+
+
 
 def create_figure_with_params():
     # global plotting settings
@@ -139,6 +156,8 @@ def create_figure_with_params():
 
 
 def plot_performance(metric="throughput"):
+    create_figure_with_params()
+
     # simulation parameters:
     m = 10
     q_r_all = [0.05, 0.2, 0.3]
@@ -158,13 +177,10 @@ def plot_performance(metric="throughput"):
         # for all loads
         for lmb in lmb_all:
 
-            # set the parameters dictionary
-            params = {'m': m, 'lmb': lmb, 'q_r': q_r}
+            # create model instance with parameters
+            saloha = SAlohaModel(m=m, lmb=lmb, q_r=q_r)
 
-            # create model instance
-            saloha = SAlohaModel(params)
-
-            print('Load ---> ' + str(params['lmb']))
+            print('Load ---> ' + str('lmb'))
 
             # transition matrix
             t_matrix = saloha.get_transition_matrix()
