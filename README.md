@@ -1,4 +1,5 @@
-Numerical calculation of slotted ALOHA performance models:
+Tutorial on modeling and performance analysis of Slotted ALOHA protocol. 
+The source code contains numerical calculation for different models:
 - basic.py 
 	Basic model: no retransmission, poisson arrival rate. Plots throughput, collisions and idle slots
 - mchain.py
