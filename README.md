@@ -1,5 +1,6 @@
 Tutorial on modeling and performance analysis of Slotted ALOHA protocol. 
-The source code contains numerical calculation for different models:
+The source code contains numerical calculation for different models.
+- SlottedAlohaTutorial.pdf - tutorial slides
 - basic.py 
 	Basic model: no retransmission, poisson arrival rate. Plots throughput, collisions and idle slots
 - mchain.py
