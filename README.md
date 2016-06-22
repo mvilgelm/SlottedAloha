@@ -8,5 +8,5 @@ The source code contains numerical calculation for different models.
 - stability.py
 	Additions for markov chain model, plots backlog and throughput and illustrates stability concerns
 
-Models and notations according to the only reference:
+Models and notations according to:
 Bertsekas, Dimitri, and Robert Gallager. "Data networks", 1987
