@@ -10,23 +10,31 @@ import matplotlib.pyplot as plt
 import matplotlib
 
 
-# saloha - throughput (utilization)
 def t_aloha(arr):
+    """
+    saloha - throughput (utilization)
+    """
     return arr*math.exp(-arr)
 
 
-# saloha - idle probability
 def i_aloha(arr):
+    """
+    saloha - idle probability
+    """
     return math.exp(-arr)
 
 
-# saloha - collision probability
 def e_aloha(arr):
+    """
+    saloha - collision probability
+    """
     return 1.0 - t_aloha(arr) - i_aloha(arr)
 
 
-# tdma - throughput (utilization)
 def t_tdma(arr):
+    """
+    tdma - throughput (utilization)
+    """
     if arr>1:
         return 1
     return arr
